@@ -7,6 +7,7 @@ import { agentMetadata, openapi, poppyDiscovery, protectedResource } from '../li
 import { createHoldsHandler } from '../lib/holds-api.ts';
 import { memoryStore } from '../lib/store.ts';
 import { books } from '../lib/books.ts';
+import { createApprovalListener } from '../agent/approval.mjs';
 import { createLibrary, runLibrary } from '../agent/library.mjs';
 import { callbackUrl, createIdentity, createSession, digest, discover, startSignIn } from '../agent/protocol.mjs';
 
@@ -68,17 +69,41 @@ async function fixture({ advertised = true } = {}) {
   const session = await createSession(identity, issuer, 'fixture-pairwise-secret-not-for-production');
   const company = () => discover({ store: site, api: site, issuer, audience, fetcher });
 
-  async function approve(scopes) {
+  async function approve(scopes, complete = (tx, callback) => tx.complete(callback)) {
     const tx = await startSignIn(await company(), identity, scopes, { fetcher });
     pending = tx.url.searchParams;
     assert.equal(pending.get('audience'), audience);
     assert.equal(pending.get('scope'), scopes.join(' '));
     const callback = new URL(callbackUrl);
     callback.search = new URLSearchParams({ state: pending.get('state'), iss: issuer, code: 'fixture-approval' });
-    return tx.complete(callback);
+    return complete(tx, callback);
   }
   return { company, session, store, issue, fetcher, approve, identity };
 }
+
+test('the approval listener ignores invalid state and issuer and accepts the valid callback', { timeout: 5000 }, async () => {
+  const lab = await fixture();
+  const grant = await lab.approve(['holds:write'], async (tx, callback) => {
+    const { server, promise } = createApprovalListener(tx);
+    const outcome = promise.then(grant => ({ grant }), error => ({ error }));
+    await new Promise((resolve, reject) => server.once('error', reject).listen(0, '127.0.0.1', resolve));
+    try {
+      callback.port = server.address().port;
+      for (const field of ['state', 'iss']) {
+        const invalid = new URL(callback);
+        invalid.searchParams.set(field, 'unexpected');
+        assert.equal((await fetch(invalid)).status, 400);
+      }
+      assert.equal((await fetch(callback)).status, 200);
+      const result = await outcome;
+      assert.ifError(result.error);
+      return result.grant;
+    } finally {
+      await new Promise(resolve => { server.close(resolve); server.closeAllConnections(); });
+    }
+  });
+  assert.deepEqual([...grant.scopes], ['holds:write']);
+});
 
 test('mock model browses, gets a scoped challenge, resumes after signed consent, and keeps two activity lanes', async () => {
   const lab = await fixture();

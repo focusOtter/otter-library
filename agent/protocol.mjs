@@ -137,6 +137,8 @@ async function createDpopKey() {
   };
 }
 
+export class CallbackValidationError extends Error {}
+
 export async function startSignIn(company, identity, scopes, { audience = company.audience, fetcher = fetch, onTokenResponse } = {}) {
   const { issuer, issuerOrigin, authorization } = company;
   const [redirectUri] = identity.metadata.redirect_uris;
@@ -197,7 +199,7 @@ export async function startSignIn(company, identity, scopes, { audience = compan
       if (used || now() >= expires || url.origin + url.pathname !== callbackUrl ||
           url.searchParams.getAll('state').length !== 1 || url.searchParams.get('state') !== state ||
           url.searchParams.getAll('iss').length !== 1 || url.searchParams.get('iss') !== issuer) {
-        throw Error('Unexpected, expired, or reused agent sign-in callback.');
+        throw new CallbackValidationError('Unexpected, expired, or reused agent sign-in callback.');
       }
       used = true;
       const code = url.searchParams.get('code');

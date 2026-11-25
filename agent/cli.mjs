@@ -1,30 +1,13 @@
 import { spawn } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
-import { createServer } from 'node:http';
 import { exportJWK, generateKeyPair } from 'jose';
+import { createApprovalListener } from './approval.mjs';
 import { callbackUrl, createIdentity, createSession, discover, startSignIn } from './protocol.mjs';
 import { createLibrary, runLibrary } from './library.mjs';
 
 async function approve(transaction) {
   const local = new URL(callbackUrl);
-  const { promise, resolve, reject } = Promise.withResolvers();
-  const headers = {
-    'content-type': 'text/html; charset=utf-8',
-    'cache-control': 'no-store',
-    'referrer-policy': 'no-referrer',
-  };
-  const server = createServer(async (request, response) => {
-    const url = new URL(local.origin + request.url);
-    if (request.method !== 'GET' || url.pathname !== local.pathname) return response.writeHead(404).end();
-    try {
-      const grant = await transaction.complete(url);
-      response.writeHead(200, headers).end('<!doctype html><title>Library approval</title><script>history.replaceState(null,"",location.pathname)</script><p>Agent approved. Return to the terminal.</p>');
-      resolve(grant);
-    } catch (error) {
-      response.writeHead(400, headers).end('<!doctype html><title>Library approval</title><script>history.replaceState(null,"",location.pathname)</script><p>Approval did not complete. Restart the agent to try again.</p>');
-      reject(error);
-    }
-  });
+  const { server, promise, reject } = createApprovalListener(transaction);
   await new Promise((resolve, reject) => {
     server.once('error', reject);
     server.listen(Number(local.port), local.hostname, resolve);
