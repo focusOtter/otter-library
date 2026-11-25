@@ -2,6 +2,8 @@
 
 **You ask. The agent browses. You approve. It reserves.**
 
+[Open the live Otter Library](https://otter-library.vercel.app/)
+
 Otter Library is a small Auth0 Poppy sample about a public bookshelf and a private library card. The agent can browse as a guest; it cannot reserve a title until a reader signs in to Auth0 and consents. **My holds** shows who reserved the title. **Activity** separates **Personal agent** from **You**.
 
 The books and reservations are fictional. The API verifies real credentials and scopes when configured. **Coming soon:** guest holds through Anonymous Sessions and `act` claims through Agents as Principals. Neither is needed for this sample.
