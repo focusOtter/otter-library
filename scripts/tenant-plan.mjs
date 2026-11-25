@@ -12,7 +12,7 @@ const plan = [
   } },
   { method: 'POST', path: 'resource-servers', body: {
     name: 'Otter Library API', identifier, signing_alg: 'RS256',
-    scopes: scopes.map(value => ({ value, description: value === 'holds:read' ? 'Read your book holds' : 'Place a book hold' })),
+    scopes: scopes.map(value => ({ value, description: value === 'holds:read' ? 'See your holds' : 'Place book holds for you' })),
   } },
   { method: 'PATCH', path: 'resource-servers/<new-api-id>', body: { use_for_personal_agent_protocol: true } },
   { method: 'POST', path: 'clients/cimd/preview', body: { external_client_id: app.origin + '/agent.json' } },

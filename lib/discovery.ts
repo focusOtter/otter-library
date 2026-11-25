@@ -1,8 +1,8 @@
 import { siteOrigin, tenantIssuer } from "./config";
 
 export const scopes = {
-  "holds:read": "Read your book holds",
-  "holds:write": "Place a book hold",
+  "holds:read": "See your holds",
+  "holds:write": "Place book holds for you",
 };
 
 export function poppyDiscovery(origin = siteOrigin(), issuer = tenantIssuer()) {
