@@ -1,0 +1,32 @@
+{
+  "name": "otter-library",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "check": "next typegen && tsc --noEmit && npm test",
+    "test": "node --import tsx --test test/*.test.mjs",
+    "tenant:plan": "node scripts/tenant-plan.mjs"
+  },
+  "dependencies": {
+    "@auth0/auth0-api-js": "1.8.0-beta.0",
+    "@auth0/nextjs-auth0": "4.34.0-beta.0",
+    "@neondatabase/serverless": "^1.0.2",
+    "ai": "^6.0.336",
+    "jose": "^6.2.18",
+    "next": "~16.4.6",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tsx": "^4.20.0",
+    "typescript": "~5.8.3"
+  }
+}

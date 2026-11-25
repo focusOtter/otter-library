@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 560" role="img" aria-labelledby="library-title library-desc" id="otter-library-architecture-root">
+  <title id="library-title">Otter Library architecture</title>
+  <desc id="library-desc">The local AI SDK runner browses and sends signed hold requests to the Next.js app. The reader approves in Auth0, which sends the browser to the public HTTPS callback. The callback hands the response back to the local runner, which exchanges the code using PKCE and a private key JWT. The app stores holds and separate agent and reader activity in Neon. The runner calls Claude Haiku 4.5 through Vercel AI Gateway.</desc>
+  <defs>
+      <style>#otter-library-architecture-root .diagram-scroll { max-width: 1040px; margin-inline: auto; overflow-x: auto; }
+      @media print {
+#otter-library-architecture-root .diagram-scroll { overflow: visible; }
+}
+      #otter-library-architecture-root .title { font: 40px Georgia, serif; fill: #24382e; }
+      #otter-library-architecture-root .name { font: 24px Georgia, serif; fill: #24382e; }
+      #otter-library-architecture-root .detail { font: 14px system-ui, sans-serif; fill: #4e6258; }
+      #otter-library-architecture-root .edge { font: 600 12px system-ui, sans-serif; fill: #274a3d; }
+      #otter-library-architecture-root .line { stroke: #274a3d; stroke-width: 1.5; fill: none; marker-end: url(#otter-library-architecture-library-arrow); }
+      #otter-library-architecture-root .return { stroke-dasharray: 5 4; }
+      #otter-library-architecture-root .box { fill: #fffaef; stroke: #c5bca9; stroke-width: 1; }</style>
+    <marker id="otter-library-architecture-library-arrow" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0 0 8 4 0 8Z" fill="#274a3d"/>
+    </marker>
+    <style>
+      .eyebrow { font: 700 12px ui-monospace, monospace; letter-spacing: .12em; fill: #4e6258; }
+      .title { font: 40px Georgia, serif; fill: #24382e; }
+      .name { font: 24px Georgia, serif; fill: #24382e; }
+      .detail { font: 14px system-ui, sans-serif; fill: #4e6258; }
+      .edge { font: 600 12px system-ui, sans-serif; fill: #274a3d; }
+      .line { stroke: #274a3d; stroke-width: 1.5; fill: none; marker-end: url(#otter-library-architecture-library-arrow); }
+      .return { stroke-dasharray: 5 4; }
+      .box { fill: #fffaef; stroke: #c5bca9; stroke-width: 1; }
+    </style>
+  </defs>
+  <rect width="1040" height="560" fill="#f5eee0"/>
+  <rect x="16" y="16" width="1008" height="528" rx="8" fill="none" stroke="#c5bca9"/>
+  <text x="48" y="52" class="eyebrow">OTTER LIBRARY · SYSTEM OVERVIEW</text>
+  <text x="48" y="102" class="title">From public shelf to approved hold</text>
+
+  <path d="M248 190H404" class="line"/>
+  <path d="M528 232V304" class="line"/>
+  <path d="M244 332H404" class="line"/>
+  <path d="M404 376H244" class="line return"/>
+  <path d="M652 352H792" class="line"/>
+  <path d="M146 408V460" class="line"/>
+
+  <g class="edge" text-anchor="middle">
+    <rect x="264" y="180" width="124" height="20" rx="4" fill="#f5eee0"/>
+    <text x="326" y="194">Reader consent</text>
+    <rect x="465" y="256" width="126" height="20" rx="4" fill="#f5eee0"/>
+    <text x="528" y="270">HTTPS callback</text>
+    <rect x="253" y="322" width="142" height="20" rx="4" fill="#f5eee0"/>
+    <text x="324" y="336">Catalog / holds API</text>
+    <rect x="258" y="366" width="132" height="20" rx="4" fill="#f5eee0"/>
+    <text x="324" y="380">Loopback handoff</text>
+    <rect x="674" y="342" width="96" height="20" rx="4" fill="#f5eee0"/>
+    <text x="722" y="356">Read / write</text>
+    <rect x="99" y="424" width="94" height="20" rx="4" fill="#f5eee0"/>
+    <text x="146" y="438">Model calls</text>
+  </g>
+
+  <g>
+    <rect x="48" y="148" width="200" height="84" rx="8" class="box"/>
+    <text x="64" y="178" class="name">Reader’s browser</text>
+    <text x="64" y="204" class="detail">Opens the approval link</text>
+    <rect x="404" y="148" width="248" height="84" rx="8" class="box"/>
+    <text x="420" y="178" class="name">Auth0 · poppy-liendo</text>
+    <text x="420" y="204" class="detail">Sign-in, consent and tokens</text>
+    <rect x="48" y="304" width="196" height="104" rx="8" class="box"/>
+    <text x="64" y="335" class="name">Local runner</text>
+    <text x="64" y="360" class="detail">AI SDK · ES256 key</text>
+    <text x="64" y="382" class="detail">PKCE · private_key_jwt</text>
+    <rect x="404" y="304" width="248" height="104" rx="8" fill="#fffaef" stroke="#a14a38" stroke-width="2"/>
+    <text x="420" y="335" class="name">Next.js on Vercel</text>
+    <text x="420" y="360" class="detail">Catalog, holds API and activity</text>
+    <text x="420" y="382" class="detail">CIMD, JWKS and callback page</text>
+    <rect x="792" y="304" width="200" height="104" rx="8" class="box"/>
+    <text x="808" y="335" class="name">Neon</text>
+    <text x="808" y="360" class="detail">Holds and separate</text>
+    <text x="808" y="382" class="detail">agent / reader activity</text>
+    <rect x="48" y="460" width="236" height="68" rx="8" class="box"/>
+    <text x="64" y="489" class="name">Vercel AI Gateway</text>
+    <text x="64" y="512" class="detail">Claude Haiku 4.5</text>
+  </g>
+</svg>

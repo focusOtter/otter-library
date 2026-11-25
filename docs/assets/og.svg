@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Otter Library</title>
+  <desc id="desc">Cream editorial card with three book spines and the line: A good read. A hold with permission.</desc>
+  <rect width="1200" height="630" fill="#f5eee0"/>
+  <rect x="42" y="42" width="1116" height="546" rx="10" fill="none" stroke="#c5bca9" stroke-width="2"/>
+  <path d="M82 148H1118M82 506H1118" stroke="#c5bca9" stroke-width="2"/>
+  <text x="82" y="116" font-family="monospace" font-size="22" letter-spacing="4" fill="#4e6258">THE READING ROOM / 01</text>
+  <text x="79" y="275" font-family="Georgia,serif" font-size="91" fill="#24382e">Otter Library</text>
+  <text x="83" y="348" font-family="Georgia,serif" font-style="italic" font-size="42" fill="#a14a38">A good read.</text>
+  <text x="83" y="404" font-family="Georgia,serif" font-size="42" fill="#24382e">A hold with permission.</text>
+  <rect x="793" y="234" width="77" height="222" rx="8" fill="#274a3d"/>
+  <rect x="878" y="200" width="83" height="256" rx="8" fill="#a14a38"/>
+  <rect x="969" y="258" width="80" height="198" rx="8" fill="#e3b569"/>
+  <path d="M805 249v191m85-225v225m91-169v169" stroke="#fff9e9" stroke-width="3" opacity=".5"/>
+  <path d="M817 277h36m47-36h44m47 57h42" stroke="#fff9e9" stroke-width="3" opacity=".7"/>
+  <text x="82" y="548" font-family="monospace" font-size="20" letter-spacing="3" fill="#4e6258">AN AUTH0 POPPY SAMPLE</text>
+</svg>

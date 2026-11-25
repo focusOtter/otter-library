@@ -1,0 +1,51 @@
+:root { color-scheme: light; --paper: #f5eee0; --ink: #24382e; --muted: #4e6258; --line: #c5bca9; --pine: #274a3d; --clay: #a14a38; --honey: #e3b569; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 system-ui, sans-serif; }
+a { color: inherit; text-underline-offset: .25em; }
+a:focus-visible, button:focus-visible, select:focus-visible { outline: 3px solid var(--clay); outline-offset: 4px; }
+h1, h2, h3 { margin: 0; font-family: Georgia, serif; font-weight: 500; line-height: 1.03; }
+.shell { width: min(1080px, calc(100% - 48px)); margin-inline: auto; }
+.nav { min-height: 76px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.wordmark { font: bold 24px Georgia, serif; text-decoration: none; white-space: nowrap; }
+.wordmark span { color: var(--clay); }
+nav { display: flex; gap: 24px; flex-wrap: wrap; }
+nav a { font-weight: 650; text-decoration: none; }
+nav a:hover { text-decoration: underline; }
+.hero { display: grid; grid-template-columns: 1fr minmax(225px, 323px); gap: 38px; align-items: center; padding: 66px 0 56px; }
+.eyebrow, .shelf-heading > span, .footer span:first-child { font: 700 .74rem/1.4 ui-monospace, monospace; letter-spacing: .1em; color: var(--muted); }
+.hero h1 { font-size: clamp(3.6rem, 8vw, 6.5rem); letter-spacing: -.065em; }
+.hero h1 em { font-weight: inherit; color: var(--clay); }
+.hero > div > p:not(.eyebrow) { max-width: 480px; margin-bottom: 24px; color: var(--muted); }
+.button { display: inline-flex; gap: 14px; align-items: center; text-decoration: none; padding: 11px 16px; background: var(--pine); color: #fff; font: 650 1rem/1.4 system-ui, sans-serif; border: 1px solid var(--pine); border-radius: 5px; cursor: pointer; }
+.button:hover { background: var(--ink); }
+.card-slip { background: #fffaef; border: 1px solid var(--line); border-radius: 8px; padding: 25px; box-shadow: 7px 7px 0 #ddcfb4; }
+.card-slip p { margin-top: 0; }
+.card-slip ol { margin: 0; padding-inline-start: 25px; }
+.card-slip li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.card-slip li:last-child { border: 0; }
+.shelf-heading { display: flex; justify-content: space-between; align-items: end; gap: 15px; border-top: 1px solid var(--line); margin-bottom: 22px; }
+.shelf-heading h2, .lane h2 { font-size: 2.3rem; }
+.books, .lanes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.book { min-width: 0; display: flex; flex-direction: column; }
+.book > a { margin-top: auto; font-weight: 700; }
+.book-cover { display: flex; flex-direction: column; min-height: 186px; border-radius: 3px 10px 10px 3px; padding: 17px 17px 17px 25px; border-left: 7px double #fff5; }
+.book-cover.pine { background: var(--pine); color: #fff9e9; }
+.book-cover.clay { background: var(--clay); color: #fff9e9; }
+.book-cover.honey { background: var(--honey); color: var(--ink); border-left-color: #24382e33; }
+.book-cover p { margin: 0 0 13px; font: 700 .7rem/1.4 ui-monospace, monospace; letter-spacing: .1em; }
+.book-cover h3 { font-size: 2rem; }
+.book-cover span { margin-top: auto; padding-top: 12px; }
+.coming, .footer { margin-top: 32px; border-top: 1px solid var(--line); padding: 24px 0; }
+.coming { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+.coming p { margin: 0; }
+.footer { display: flex; gap: 12px; justify-content: space-between; flex-wrap: wrap; color: var(--muted); }
+.panel { padding: 58px 0 34px; }
+.panel h1 { font-size: clamp(3rem, 7vw, 5rem); letter-spacing: -.04em; }
+.lanes { grid-template-columns: repeat(2, 1fr); }
+.lane { padding: 19px; border: 1px solid var(--line); border-radius: 7px; background: #fffaef; }
+.lane .eyebrow { margin-top: 0; }
+.entries { list-style: none; padding: 0; }
+.entries li { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; gap: 12px; justify-content: space-between; }
+.reserve { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 26px; }
+.reserve select { max-width: 100%; font: inherit; padding: 10px; border: 1px solid var(--line); background: #fffaef; color: var(--ink); border-radius: 5px; }
+@media (max-width: 690px) { .hero, .books, .lanes { grid-template-columns: 1fr; } .hero { padding-top: 38px; } .nav { padding: 12px 0; align-items: start; flex-direction: column; } nav { gap: 16px; } }
