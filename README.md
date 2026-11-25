@@ -19,6 +19,8 @@ Open http://localhost:3000. Run `npm run check` to typecheck and exercise the ap
 
 ## Architecture
 
+![Otter Library architecture: the local runner calls the Next.js app, Auth0 handles reader consent and returns through the HTTPS callback, and Neon stores holds and activity.](docs/assets/otter-library-architecture.svg)
+
 | Where | What runs there |
 | --- | --- |
 | One public Next.js origin | Catalog, Auth0 reader sign-in, `/api/holds`, activity, discovery, public agent metadata and JWKS, and the HTTPS callback |
